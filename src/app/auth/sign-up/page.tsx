@@ -30,13 +30,13 @@ export default function Sign_in() {
     resolver: zodResolver(userRegisterSchema),
   });
   // submit function
-  const handleRegister = async () => {};
+  const handleRegister = async (data: UserRegisterType) => {
+    console.log(data);
+    reset();
+  };
   return (
     <section className="h-screen  flex items-center overflow-y-auto">
-      <form
-        className=" w-fit mx-auto h-fit "
-        onSubmit={handleSubmit(handleRegister)}
-      >
+      <div className=" w-fit mx-auto h-fit ">
         <Card className="mx-auto max-w-sm shadow-lg shadow-foreground/20">
           <CardHeader>
             <CardTitle className="text-2xl text-center">Sign up</CardTitle>
@@ -46,80 +46,66 @@ export default function Sign_in() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="John Doe"
-                  autoComplete="off"
-                  {...register("name")}
-                />
-                <p className="">
-                  {errors.name && (
-                    <span className="text-xs select-none text-red-500  text-balance ml-2">
-                      {errors.name.message}
-                    </span>
-                  )}
-                </p>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  className="lowercase"
-                  autoComplete="off"
-                  {...register("email")}
-                />
-                <p className="">
-                  {errors.email && (
-                    <span className="text-xs select-none text-red-500  text-balance ml-2">
-                      {errors.email.message}
-                    </span>
-                  )}
-                </p>
-              </div>
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+              <form action="" onSubmit={handleSubmit(handleRegister)}>
+                <div className="grid gap-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="John Doe"
+                    autoComplete="off"
+                    {...register("name")}
+                  />
+                  <span className="text-xs select-none text-red-500  text-balance ml-2  relative bottom-2">
+                    {errors.name && errors.name.message}
+                  </span>
                 </div>
-                <Input
-                  id="password"
-                  type="password"
-                  autoComplete="off"
-                  {...register("password")}
-                />
-                <p className="">
-                  {errors.password && (
-                    <span className="text-xs select-none text-red-500  text-balance ml-2">
-                      {errors.password.message}
-                    </span>
-                  )}
-                </p>
-              </div>
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Confirm Password</Label>
+                <div className="grid gap-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    className="lowercase"
+                    autoComplete="off"
+                    {...register("email")}
+                  />
+                  <span className="text-xs select-none text-red-500  text-balance ml-2  relative bottom-2">
+                    {errors.email && errors.email.message}
+                  </span>
                 </div>
-                <Input
-                  id="password"
-                  type="password"
-                  autoComplete="off"
-                  {...register("confirmPassword")}
-                />
-                <p className="">
-                  {errors.confirmPassword && (
-                    <span className="text-xs select-none text-red-500  text-balance ml-2">
-                      {errors.confirmPassword.message}
-                    </span>
-                  )}
-                </p>
-              </div>
-              <Button type="submit" className="w-full">
-                Sign up
-              </Button>
+                <div className="grid gap-2">
+                  <div className="flex items-center">
+                    <Label htmlFor="password">Password</Label>
+                  </div>
+                  <Input
+                    id="password"
+                    type="password"
+                    autoComplete="off"
+                    {...register("password")}
+                  />
+                  <span className="text-xs select-none text-red-500  text-balance ml-2  relative bottom-2">
+                    {errors.password && errors.password.message}
+                  </span>
+                </div>
+                <div className="grid gap-2">
+                  <div className="flex items-center">
+                    <Label htmlFor="password">Confirm Password</Label>
+                  </div>
+                  <Input
+                    id="confirmPassword"
+                    type="password"
+                    autoComplete="off"
+                    {...register("confirmPassword")}
+                  />
+                  <span className="text-xs select-none text-red-500  text-balance ml-2  relative bottom-2">
+                    {errors.confirmPassword && errors.confirmPassword.message}
+                  </span>
+                </div>
+                <Button type="submit" className="w-full">
+                  Sign up
+                </Button>
+              </form>
               <Button variant="outline" className="w-full">
                 <FcGoogle size={23} className="mx-3" />
                 Login with Google
@@ -133,7 +119,7 @@ export default function Sign_in() {
             </div>
           </CardContent>
         </Card>
-      </form>
+      </div>
     </section>
   );
 }
