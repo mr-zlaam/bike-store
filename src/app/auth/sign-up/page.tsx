@@ -1,5 +1,5 @@
 "use client";
-import { axios } from "@/axios";
+import { account } from "@/appwrite/appwrite";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,10 +10,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BACKEND_URI } from "@/config";
 import { userRegisterSchema } from "@/schemas/zod";
 import type { UserRegisterType } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ID } from "appwrite";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -33,7 +33,18 @@ export default function Sign_in() {
   });
   // submit function
   const handleRegister = async (data: UserRegisterType) => {
-    reset();
+    try {
+      const response = await account.create(
+        ID.unique(),
+        data.email,
+        data.password,
+        data.name,
+      );
+      console.log("res", response);
+    } catch (error: any) {
+      if (error instanceof Error) console.log(error.message);
+      console.log(error);
+    }
   };
   return (
     <section className="h-screen  flex items-center overflow-y-auto">

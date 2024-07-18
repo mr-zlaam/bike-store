@@ -7,4 +7,3 @@ client
   .setProject(process.env.NEXT_PUBLIC_PROJECT_ID as string);
 // * Account
 export const account = new Account(client);
-export { ID as appwriteId } from "appwrite";
