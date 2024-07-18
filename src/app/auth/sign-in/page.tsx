@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 export default function Sign_in() {
   return (
     <section className="h-screen  flex items-center">
-      <div className=" w-fit mx-auto">
+      <form className=" w-fit mx-auto">
         <Card className="mx-auto max-w-sm shadow-lg shadow-foreground/20">
           <CardHeader>
             <CardTitle className="text-2xl text-center">Sign in</CardTitle>
@@ -62,7 +62,7 @@ export default function Sign_in() {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </form>
     </section>
   );
 }
