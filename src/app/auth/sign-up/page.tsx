@@ -1,7 +1,5 @@
-import Link from "next/link";
+"use client";
 import { Button } from "@/components/ui/button";
-import { FcGoogle } from "react-icons/fc";
-
 import {
   Card,
   CardContent,
@@ -11,11 +9,34 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { userRegisterSchema } from "@/schemas/zod";
+import type { UserRegisterType } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Sign_in() {
+  const router = useRouter();
+  // ** hook form
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserRegisterType>({
+    resolver: zodResolver(userRegisterSchema),
+  });
+  // submit function
+  const handleRegister = async () => {};
   return (
-    <section className="h-screen  flex items-center">
-      <form className=" w-fit mx-auto">
+    <section className="h-screen  flex items-center overflow-y-auto">
+      <form
+        className=" w-fit mx-auto h-fit "
+        onSubmit={handleSubmit(handleRegister)}
+      >
         <Card className="mx-auto max-w-sm shadow-lg shadow-foreground/20">
           <CardHeader>
             <CardTitle className="text-2xl text-center">Sign up</CardTitle>
@@ -32,7 +53,15 @@ export default function Sign_in() {
                   type="text"
                   placeholder="John Doe"
                   autoComplete="off"
+                  {...register("name")}
                 />
+                <p className="">
+                  {errors.name && (
+                    <span className="text-xs select-none text-red-500  text-balance ml-2">
+                      {errors.name.message}
+                    </span>
+                  )}
+                </p>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
@@ -40,14 +69,53 @@ export default function Sign_in() {
                   id="email"
                   type="email"
                   placeholder="m@example.com"
+                  className="lowercase"
                   autoComplete="off"
+                  {...register("email")}
                 />
+                <p className="">
+                  {errors.email && (
+                    <span className="text-xs select-none text-red-500  text-balance ml-2">
+                      {errors.email.message}
+                    </span>
+                  )}
+                </p>
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                 </div>
-                <Input id="password" type="password" autoComplete="off" />
+                <Input
+                  id="password"
+                  type="password"
+                  autoComplete="off"
+                  {...register("password")}
+                />
+                <p className="">
+                  {errors.password && (
+                    <span className="text-xs select-none text-red-500  text-balance ml-2">
+                      {errors.password.message}
+                    </span>
+                  )}
+                </p>
+              </div>
+              <div className="grid gap-2">
+                <div className="flex items-center">
+                  <Label htmlFor="password">Confirm Password</Label>
+                </div>
+                <Input
+                  id="password"
+                  type="password"
+                  autoComplete="off"
+                  {...register("confirmPassword")}
+                />
+                <p className="">
+                  {errors.confirmPassword && (
+                    <span className="text-xs select-none text-red-500  text-balance ml-2">
+                      {errors.confirmPassword.message}
+                    </span>
+                  )}
+                </p>
               </div>
               <Button type="submit" className="w-full">
                 Sign up
